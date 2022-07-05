@@ -11,7 +11,7 @@ namespace SoftCommerce\PlentyAmastyRewards\Model\OrderExportService\ItemGenerato
 use Amasty\Rewards\Api\Data\SalesQuote\EntityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use SoftCommerce\PlentyOrderProfile\Model\OrderExportService\Generator\Order\Items\ItemAbstract;
-use SoftCommerce\PlentyOrderRestApi\Model\OrderInterface as HttpClient;
+use SoftCommerce\PlentyOrderRestApi\Model\Order\ItemInterface as HttpClient;
 use SoftCommerce\Profile\Model\ServiceAbstract\ProcessorInterface;
 
 /**
@@ -40,8 +40,12 @@ class Rewards extends ItemAbstract implements ProcessorInterface
     private function generate(): void
     {
         $context = $this->getContext();
-        if ($context->getClientOrder()->getItemByTypeId(HttpClient::ITEM_TYPE_PROMOTIONAL_COUPON)
-            || !$amount = (float) $context->getSalesOrder()->getData(EntityInterface::POINTS_SPENT)
+        $canProcess = !$context->getClientOrder()->getItemByTypeId(HttpClient::TYPE_PROMOTIONAL_COUPON);
+        $discountAmount = $context->getSalesOrder()->getDiscountAmount();
+
+        if (!$canProcess
+            || !$discountAmount
+            || !$points = $context->getSalesOrder()->getData(EntityInterface::POINTS_SPENT)
         ) {
             return;
         }
@@ -49,7 +53,7 @@ class Rewards extends ItemAbstract implements ProcessorInterface
         $vatRate = 0;
         if ($this->scopeConfig->getValue(self::XML_PATH_DISCOUNT_INCLUDES_TAX)) {
             $vatRate = $this->getSalesOrderTaxRate->getTaxRate(
-                (int) $this->getContext()->getSalesOrder()->getEntityId()
+                (int) $context->getSalesOrder()->getEntityId()
             );
         }
 
@@ -57,7 +61,7 @@ class Rewards extends ItemAbstract implements ProcessorInterface
             HttpClient::IS_SYSTEM_CURRENCY => true,
             HttpClient::CURRENCY => $context->getSalesOrder()->getBaseCurrencyCode(),
             HttpClient::EXCHANGE_RATE => 1,
-            HttpClient::PRICE_ORIGINAL_GROSS => $amount,
+            HttpClient::PRICE_ORIGINAL_GROSS => $discountAmount,
             HttpClient::SURCHARGE => 0,
             HttpClient::DISCOUNT => 0,
             HttpClient::IS_PERCENTAGE => false
@@ -65,24 +69,22 @@ class Rewards extends ItemAbstract implements ProcessorInterface
 
         $this->getRequestStorage()->addData(
             [
-                HttpClient::TYPE_ID => HttpClient::ITEM_TYPE_PROMOTIONAL_COUPON,
-                HttpClient::REFERRER_ID => $this->getContext()->orderConfig()->getOrderReferrerId(
+                HttpClient::TYPE_ID => HttpClient::TYPE_PROMOTIONAL_COUPON,
+                HttpClient::REFERRER_ID => $context->orderConfig()->getOrderReferrerId(
                     $context->getSalesOrder()->getStoreId()
                 ),
                 HttpClient::QUANTITY => 1,
                 HttpClient::COUNTRY_VAT_ID => $this->getCountryId(
-                    $this->getContext()->getSalesOrder()->getBillingAddress()->getCountryId()
+                    $context->getSalesOrder()->getBillingAddress()->getCountryId()
                 ),
                 HttpClient::VAT_FIELD => 0,
                 HttpClient::VAT_RATE => $vatRate,
-                HttpClient::ORDER_ITEM_NAME => __(
-                    'Amasty Rewards: (%1)',
-                    $context->getSalesOrder()->getDiscountDescription() ?: 'N/A'
-                ),
+                HttpClient::ORDER_ITEM_NAME => $context->getSalesOrder()->getDiscountDescription()
+                    ?:  __('Used %1 reward points', $points),
                 HttpClient::AMOUNTS => $amounts,
             ]
         );
 
-        $this->getContext()->getClientOrder()->setIsDiscountApplied(true);
+        $context->getClientOrder()->setIsDiscountApplied(true);
     }
 }

@@ -1,5 +1,8 @@
 ## Changelog
 
+### Version 1.0.3
+- **Compatibility**: Compatibility with `SoftCommerce_PlentyOrderProfile` version 1.4.2.
+
 ### Version 1.0.2
 - **Compatibility**: Compatibility with Magento [OS/AC] 2.4.5 and PHP 8
 

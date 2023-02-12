@@ -80,7 +80,7 @@ class Rewards extends ItemAbstract implements ProcessorInterface
                 HttpClient::VAT_FIELD => 0,
                 HttpClient::VAT_RATE => $vatRate,
                 HttpClient::ORDER_ITEM_NAME => $context->getSalesOrder()->getDiscountDescription()
-                    ?:  __('Used %1 reward points', $points),
+                    ?: __('Used %1 reward points', $points),
                 HttpClient::AMOUNTS => $amounts,
             ]
         );

@@ -11,7 +11,9 @@ namespace SoftCommerce\PlentyAmastyRewards\Model\OrderExportService\ItemGenerato
 use Amasty\Rewards\Api\Data\SalesQuote\EntityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use SoftCommerce\PlentyOrderProfile\Model\OrderExportService\Generator\Order\Items\ItemAbstract;
+use SoftCommerce\PlentyOrderProfile\Model\OrderExportService\Processor\Order as OrderProcessor;
 use SoftCommerce\PlentyOrderRestApi\Model\Order\ItemInterface as HttpClient;
+use SoftCommerce\PlentyOrderRestApi\Model\OrderInterface as HttpOrderClient;
 use SoftCommerce\Profile\Model\ServiceAbstract\ProcessorInterface;
 
 /**
@@ -67,12 +69,14 @@ class Rewards extends ItemAbstract implements ProcessorInterface
             HttpClient::IS_PERCENTAGE => false
         ];
 
-        $this->getRequestStorage()->addData(
+        $referrerId = (float) $context->storeConfig()->getReferrerIdByStoreId(
+            (int) $context->getSalesOrder()->getStoreId()
+        );
+
+        $context->getRequestStorage()->addData(
             [
                 HttpClient::TYPE_ID => HttpClient::TYPE_PROMOTIONAL_COUPON,
-                HttpClient::REFERRER_ID => $context->orderConfig()->getOrderReferrerId(
-                    $context->getSalesOrder()->getStoreId()
-                ),
+                HttpClient::REFERRER_ID => $referrerId,
                 HttpClient::QUANTITY => 1,
                 HttpClient::COUNTRY_VAT_ID => $this->getCountryId(
                     $context->getSalesOrder()->getBillingAddress()->getCountryId()
@@ -82,7 +86,8 @@ class Rewards extends ItemAbstract implements ProcessorInterface
                 HttpClient::ORDER_ITEM_NAME => $context->getSalesOrder()->getDiscountDescription()
                     ?: __('Used %1 reward points', $points),
                 HttpClient::AMOUNTS => $amounts,
-            ]
+            ],
+            [OrderProcessor::TYPE_ID, HttpOrderClient::ORDER_ITEMS]
         );
 
         $context->getClientOrder()->setIsDiscountApplied(true);

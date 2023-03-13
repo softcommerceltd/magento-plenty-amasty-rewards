@@ -2,7 +2,7 @@
     "name": "softcommerce/module-plenty-amasty-rewards",
     "description": "SoftCommerce -- PlentyMarkets - Amasty Rewards Module.",
     "require": {
-        "php": "~7.4.0||~8.0.0||~8.1.0",
+        "php": "~8.0.0||~8.1.0||~8.2.0",
         "amasty/rewards": "*"
     },
     "type": "magento2-module",
@@ -16,5 +16,5 @@
             "SoftCommerce\\PlentyAmastyRewards\\": ""
         }
     },
-    "version": "1.0.3"
+    "version": "1.0.4"
 }

@@ -11,7 +11,7 @@
             <argument name="processors" xsi:type="array">
                 <item name="amasty_rewards" xsi:type="array">
                     <item name="class" xsi:type="object">SoftCommerce\PlentyAmastyRewards\Model\OrderExportService\ItemGenerator\Rewards</item>
-                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
                 </item>
             </argument>
         </arguments>

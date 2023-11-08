@@ -1,5 +1,8 @@
 ## Changelog
 
+### Version 1.0.6
+- **Enhancement**: Removed composer requirements for `amasty/rewards`
+
 ### Version 1.0.5
 - **Compatibility**: Compatibility with Magento [CE|EE|ECE] 2.4.6
 

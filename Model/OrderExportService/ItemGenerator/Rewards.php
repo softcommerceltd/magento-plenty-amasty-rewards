@@ -43,10 +43,10 @@ class Rewards extends ItemAbstract implements ProcessorInterface
     {
         $context = $this->getContext();
         $canProcess = !$context->getClientOrder()->getItemByTypeId(HttpClient::TYPE_PROMOTIONAL_COUPON);
-        $discountAmount = $context->getSalesOrder()->getDiscountAmount();
+        $discountAmount = (float) $context->getSalesOrder()->getDiscountAmount();
 
         if (!$canProcess
-            || !$discountAmount
+            || $discountAmount >= 0
             || !$points = $context->getSalesOrder()->getData(EntityInterface::POINTS_SPENT)
         ) {
             return;

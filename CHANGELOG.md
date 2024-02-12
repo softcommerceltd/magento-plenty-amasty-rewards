@@ -1,5 +1,8 @@
 ## Changelog
 
+### Version 1.0.7
+- **Fix**: Prevent amounts >= 0 being sent to PM. [#1]
+
 ### Version 1.0.6
 - **Enhancement**: Removed composer requirements for `amasty/rewards`
 

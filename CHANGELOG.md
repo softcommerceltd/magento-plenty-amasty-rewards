@@ -1,5 +1,8 @@
 ## Changelog
 
+### Version 1.0.8
+- **Compatibility**: Compatibility with PHP 8.3
+
 ### Version 1.0.7
 - **Fix**: Prevent amounts >= 0 being sent to PM. [#1]
 

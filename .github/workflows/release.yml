@@ -12,8 +12,10 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "1.0.7"
-          tag_name: 1.0.7
-          body: "1.0.7"
+          name: 1.0.8 [CE|EE|ECE 2.4.0-2.4.7] 25 Apr 2024
+          tag_name: 1.0.8
+          body: |-
+            ### softcommerce/module-plenty-amasty-rewards [1.0.8]
+            - **Compatibility**: Compatibility with PHP 8.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

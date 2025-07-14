@@ -1,5 +1,5 @@
 ## About
-Magento <> PlentyMarkets Connector. Amasty Rewards - Order profile module.
+Magento <> PlentyONE Connector. Amasty Rewards - Order profile module.
 
 ## Purpose
 Used to manage order item export for Amasty Rewards.

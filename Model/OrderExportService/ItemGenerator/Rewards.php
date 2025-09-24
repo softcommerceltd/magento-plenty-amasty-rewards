@@ -12,8 +12,8 @@ use Amasty\Rewards\Api\Data\SalesQuote\EntityInterface;
 use Magento\Framework\Exception\LocalizedException;
 use SoftCommerce\PlentyOrderProfile\Model\OrderExportService\Generator\Order\Items\ItemAbstract;
 use SoftCommerce\PlentyOrderProfile\Model\OrderExportService\Processor\Order as OrderProcessor;
-use SoftCommerce\PlentyOrderRestApi\Model\Order\ItemInterface as HttpClient;
-use SoftCommerce\PlentyOrderRestApi\Model\OrderInterface as HttpOrderClient;
+use SoftCommerce\PlentyOrder\RestApi\Order\ItemInterface as HttpClient;
+use SoftCommerce\PlentyOrder\RestApi\OrderInterface as HttpOrderClient;
 use SoftCommerce\Profile\Model\ServiceAbstract\ProcessorInterface;
 
 /**

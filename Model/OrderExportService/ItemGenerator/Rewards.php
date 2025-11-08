@@ -23,7 +23,7 @@ use SoftCommerce\Profile\Model\ServiceAbstract\ProcessorInterface;
  */
 class Rewards extends ItemAbstract implements ProcessorInterface
 {
-    private const XML_PATH_DISCOUNT_INCLUDES_TAX = 'tax/calculation/discount_tax';
+    private const string XML_PATH_DISCOUNT_INCLUDES_TAX = 'tax/calculation/discount_tax';
 
     /**
      * @inheritDoc

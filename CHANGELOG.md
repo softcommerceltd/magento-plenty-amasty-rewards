@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-01-08
+### Changed
+- **BREAKING**: Upgraded minimum PHP version requirement to 8.3+
+- **BREAKING**: Major API changes for PlentyMarkets integration
+- **Compatibility**: Added support for PHP 8.4
+- **Compatibility**: Updated dependency `softcommerce/module-plenty-profile` to ^2.0.0
+- **Enhancement**: Add typed class constants for improved type safety
+
 ## [1.0.9] - 2023-09-13
 ### Changed
 - **Compatibility**: Added compatibility for PHP 8.4 and Magento 2.4.8-beta
@@ -47,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - New module to handle order item export for Amasty Rewards.
 
-[Unreleased]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v1.0.9...HEAD
+[Unreleased]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v1.0.9...v2.0.0
 [1.0.9]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/softcommerceltd/magento-plenty-amasty-rewards/compare/v1.0.6...v1.0.7
